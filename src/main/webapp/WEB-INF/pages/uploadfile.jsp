@@ -1,25 +1,16 @@
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@page session="true"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib
     prefix="c"
     uri="http://java.sun.com/jsp/jstl/core" 
 %> 
-<html>
-<head>
-<title>Crunchify - Spring MVC Upload Multiple Files Example</title>
-
-<style type="text/css">
-body {
-    background-image:
-        url('http://cdn3.crunchify.com/wp-content/uploads/2013/03/Crunchify.bg_.300.png');
-}
-</style>
-</head>
-<body>
-    <br>
-    <br>
-    <div align="center">
-        <h1>Crunchify - Spring MVC Upload Multiple Files Example</h1>
+  <%@ include file="header.jsp" %>
+ 
+        <div class="main">
+            <div class="post">
+        <h1>Avatar upload</h1>
  		<c:if test="${errorList != null}">
  			<c:forEach items="${errorList}" var="item">
 	   					<li>${item}</li>
@@ -43,7 +34,7 @@ body {
 
         </form:form>
  
-        <br />
+        </div>
     </div>
 </body>
 </html>

@@ -31,24 +31,25 @@ import com.jhomlala.model.FileUpload;
 import com.jhomlala.model.Person;
 import com.jhomlala.model.Post;
 import com.jhomlala.services.DashboardService;
-
-
+import com.jhomlala.services.PostService;
 
 @Controller
 public class DashboardController {
 
 	@Autowired
 	DashboardService dashboardService;
-	
-	
-    @Transactional(readOnly=true)
+
+	@Autowired
+	PostService postService;
+
+	@Transactional(readOnly = true)
 	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
 	public ModelAndView defaultPage() {
 
 		ModelAndView model = new ModelAndView();
-		model.addObject("postList",dashboardService.loadPosts(5));
+		model.addObject("postList", postService.loadPosts(5));
 		model.setViewName("Index");
-		
+
 		return model;
 
 	}
@@ -64,7 +65,7 @@ public class DashboardController {
 		return model;
 
 	}
-	
+
 	@RequestMapping(value = "/dashboard/add", method = RequestMethod.GET)
 	public ModelAndView dashboardAddPost() {
 
@@ -75,28 +76,32 @@ public class DashboardController {
 		return model;
 
 	}
-	@Transactional(readOnly=true)
+
+	@Transactional(readOnly = true)
 	@RequestMapping(value = "/dashboard/add", method = RequestMethod.POST)
-	public ModelAndView dashboarddAdPostReceivePostFromUser(@RequestParam String message) 
-	{
-		List<String> errorList = dashboardService.addPost(message);
+	public ModelAndView dashboarddAdPostReceivePostFromUser(
+			@RequestParam String message) {
+		List<String> errorList = postService.addPost(message);
 		ModelAndView model = new ModelAndView();
-		model.addObject("errorList",errorList);
-		
-		if (errorList.size() == 0) model.addObject("success","success`");
+		model.addObject("errorList", errorList);
+
+		if (errorList.size() == 0)
+			model.addObject("success", "success`");
 		model.setViewName("DashboardPost");
 
 		return model;
 	}
-	
-	
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public ModelAndView login(@RequestParam(value = "error", required = false) String error,
-			@RequestParam(value = "logout", required = false) String logout, HttpServletRequest request) {
+	public ModelAndView login(
+			@RequestParam(value = "error", required = false) String error,
+			@RequestParam(value = "logout", required = false) String logout,
+			HttpServletRequest request) {
 
 		ModelAndView model = new ModelAndView();
 		if (error != null) {
-			model.addObject("error", getErrorMessage(request, "SPRING_SECURITY_LAST_EXCEPTION"));
+			model.addObject("error",
+					getErrorMessage(request, "SPRING_SECURITY_LAST_EXCEPTION"));
 		}
 
 		if (logout != null) {
@@ -111,7 +116,8 @@ public class DashboardController {
 	// customize the error message
 	private String getErrorMessage(HttpServletRequest request, String key) {
 
-		Exception exception = (Exception) request.getSession().getAttribute(key);
+		Exception exception = (Exception) request.getSession()
+				.getAttribute(key);
 
 		String error = "";
 		if (exception instanceof BadCredentialsException) {
@@ -132,7 +138,8 @@ public class DashboardController {
 		ModelAndView model = new ModelAndView();
 
 		// check if user is login
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			UserDetails userDetail = (UserDetails) auth.getPrincipal();
 			System.out.println(userDetail);
@@ -145,33 +152,28 @@ public class DashboardController {
 		return model;
 
 	}
-	
-	 @RequestMapping(value = "/dashboard/upload", method = RequestMethod.GET)
-	    public String crunchifyDisplayForm(Map<String, Object> model)
-	    {
-	    	FileUpload uploadForm = new FileUpload(); 
-	        model.put("uploadForm", uploadForm);
 
-	        return "uploadfile";
-	    }
-	 
-	    
-	    
-	    @Transactional(readOnly = true)
-	    @RequestMapping(value = "/dashboard/upload", method = RequestMethod.POST)
-	    public String crunchifySave(  @ModelAttribute("uploadForm") FileUpload uploadForm,
-	    Model model) throws IllegalStateException, IOException 
-	            
-	    {
-	    	
+	@RequestMapping(value = "/dashboard/upload", method = RequestMethod.GET)
+	public String crunchifyDisplayForm(Map<String, Object> model) {
+		FileUpload uploadForm = new FileUpload();
+		model.put("uploadForm", uploadForm);
 
-	        List <String> errorList = dashboardService.addAvatar(uploadForm);
-	   
-	        	model.addAttribute("errorList",errorList);
-	       
-	        return "uploadfile";
-	    }
+		return "uploadfile";
+	}
 
+	@Transactional(readOnly = true)
+	@RequestMapping(value = "/dashboard/upload", method = RequestMethod.POST)
+	public String crunchifySave(
+			@ModelAttribute("uploadForm") FileUpload uploadForm, Model model)
+			throws IllegalStateException, IOException
 
+	{
+
+		List<String> errorList = dashboardService.addAvatar(uploadForm);
+
+		model.addAttribute("errorList", errorList);
+
+		return "uploadfile";
+	}
 
 }

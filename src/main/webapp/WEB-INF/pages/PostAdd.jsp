@@ -8,9 +8,10 @@
 
 <div class="main">
 	<div class="postadd">
-	<h2>Create comment</h2>
-	<div class="green">You are commenting <a href="${contextPath }/post/${id }">this post.</a></div>
+	
 	<c:if test="${errorList == null}">  
+	<h2>Create comment</h2>
+    <div class="green">You are commenting <a href="${contextPath }/post/${id }">this post.</a></div>
 	<br>
 	<form name='postForm' action="<c:url value='/post/${post.id }/addComment' />" method='POST'>
 		<textarea id="message" name="message"></textarea>
@@ -28,6 +29,7 @@
 	<div class="alert alert-success" role="alert">
                		 	<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                		 	<strong>Success.</strong> Your message has been posted.
+               		 	<br><a href="${contextPath }/post/${id }">Check your comment.</a>
                		 	</div>
 	</c:if>
 	</div>

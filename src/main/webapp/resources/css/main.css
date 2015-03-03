@@ -245,3 +245,51 @@ body
     background: #007299;
     box-shadow: none;
 }
+
+.big 
+{
+	font-size:12px;
+}
+
+.center
+{
+	margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.comments
+{
+	margin-left: 15%; 
+ 
+}
+.comments img
+{
+	height:35px;
+	width:35px;
+}
+
+.points
+{
+
+	font-weight: 800;  
+	font-size:15px; 
+}
+
+.plus
+{ 
+	color: rgb(0,128,0); 
+}
+
+.minus 
+{
+	color: rgb(128,0,0); 
+}
+
+.iconvote img
+{
+	height: 20px;
+	width: 20px;
+	border: 0px solid;  
+}
+

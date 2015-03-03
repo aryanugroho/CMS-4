@@ -4,5 +4,6 @@
        	    <c:forEach items="${errorList}" var="item">
 				<li>${item}</li>				
 			</c:forEach>
+			<br>
+			<a href="${contextPath}">Return to main site.</a>
 </div>
-<a href="../">Return to main site.</a>

@@ -1,57 +1,16 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page session="true"%>
-<html>
-<head>
-
-<title>Login Page</title>
-<style>
-.error {
-	padding: 15px;
-	margin-bottom: 20px;
-	border: 1px solid transparent;
-	border-radius: 4px;
-	color: #a94442;
-	background-color: #f2dede;
-	border-color: #ebccd1;
-}
-
-.msg {
-	padding: 15px;
-	margin-bottom: 20px;
-	border: 1px solid transparent;
-	border-radius: 4px;
-	color: #31708f;
-	background-color: #d9edf7;
-	border-color: #bce8f1;
-}
-
-#login-box {
-	width: 300px;
-	padding: 20px;
-	margin: 100px auto;
-	background: #fff;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border: 1px solid #000;
-}
-</style>
-</head>
-<body onload='document.loginForm.username.focus();'>
-
-
-
-
-   
-
-
-
-
-	<h1>Spring Security Login Form (Database + Hibernate Authentication)</h1>
-
-	<div id="login-box">
-
-
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib
+    prefix="c"
+    uri="http://java.sun.com/jsp/jstl/core" 
+%> 
+  <%@ include file="header.jsp" %>
+ 
+        <div class="main">
+            <div class="post">
+                <div class="center">
 
 		<h3>Login with Username and Password</h3>
 
@@ -75,8 +34,8 @@
 					<td><input type='password' name='password' /></td>
 				</tr>
 				<tr>
-					<td colspan='2'><input name="submit" type="submit"
-						value="submit" /></td>
+					<td colspan='2'><input class = "btn btn-primary btn-lg raised big" name="submit" type="submit"
+						value="Login" /></td>
 				</tr>
 			</table>
 
@@ -85,6 +44,7 @@
 
 		</form>
 	</div>
-
+</div>
+</div>
 </body>
 </html>

@@ -21,8 +21,10 @@ public class Comment
 	private String authorAvatarURL;
 	private int plusCount;
 	private int minusCount;
+	private int totalCount;
 	private String message;
 	private boolean visible;
+	
 	
 	@Id
 	@GeneratedValue
@@ -96,6 +98,13 @@ public class Comment
 	}
 	public void setVisible(boolean visible) {
 		this.visible = visible;
+	}
+	@Transient
+	public int getTotalCount() {
+		return totalCount;
+	}
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
 	}
 	
 	

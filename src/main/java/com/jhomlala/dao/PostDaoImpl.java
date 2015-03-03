@@ -18,58 +18,60 @@ import com.jhomlala.model.Post;
 public class PostDaoImpl implements PostDao {
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	@Override
 	public void insert(Post post) {
 
 		Session session = sessionFactory.openSession();
-		int id=0;
-		 Transaction tx = null;
-		 try {
+		int id = 0;
+		Transaction tx = null;
+		try {
 
-				 tx = session.beginTransaction();
-				 session.save(post);
-		     tx.commit();
-		 }
-		 catch (Exception exc) {
-		     if (tx!=null) tx.rollback();
-		     
-		 }
-		 finally {
-		     session.close();
-		 }
+			tx = session.beginTransaction();
+			session.save(post);
+			tx.commit();
+		} catch (Exception exc) {
+			if (tx != null)
+				tx.rollback();
 
-		
+		} finally {
+			session.close();
+		}
+
 	}
 
 	@Override
-	public List<Post> getPosts(int count) 
-	{
-		List <Post> postList = new ArrayList<Post>();
+	public List<Post> getPosts(int count) {
+		List<Post> postList = new ArrayList<Post>();
 
-		
-		Criteria cr = sessionFactory.getCurrentSession().createCriteria(Post.class);
+		Criteria cr = sessionFactory.getCurrentSession().createCriteria(
+				Post.class);
 		cr.addOrder(Order.desc("id"));
 		cr.setMaxResults(count);
 		postList = cr.list();
 		return postList;
 	}
-	
+
 	@Override
-	public List<Post> getPostsForPersonWithId(int id,int count)
-	{
-		Criteria cr = sessionFactory.getCurrentSession().createCriteria(Post.class);
-		cr.add(Restrictions.eq("authorID",id));
+	public List<Post> getPostsForPersonWithId(int id, int count) {
+		Criteria cr = sessionFactory.getCurrentSession().createCriteria(
+				Post.class);
+		cr.add(Restrictions.eq("authorID", id));
 		cr.setMaxResults(count);
 		return cr.list();
-		
+
 	}
 
 	@Override
 	public Post getPostWithId(int id) {
-		Criteria cr = sessionFactory.getCurrentSession().createCriteria(Post.class);
+		Criteria cr = sessionFactory.getCurrentSession().createCriteria(
+				Post.class);
 		cr.add(Restrictions.eqOrIsNull("id", id));
-		return (Post) cr.list().get(0);
+		List<Post> returnList = cr.list();
+		if (returnList.size() > 0)
+			return returnList.get(0);
+		else
+			return null;
 	}
 
 }

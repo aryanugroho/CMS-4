@@ -20,6 +20,7 @@ public class Post {
 	private Timestamp createdDate;
 	private int plusCount;
 	private int minusCount;
+	private int totalCount;
 	private String message;
 	private boolean visible;
 	private List<Comment> commentList;
@@ -102,6 +103,13 @@ public class Post {
 	}
 	public void setCommentList(List<Comment> commentList) {
 		this.commentList = commentList;
+	}
+	@Transient
+	public int getTotalCount() {
+		return totalCount;
+	}
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
 	}
 	
 	
